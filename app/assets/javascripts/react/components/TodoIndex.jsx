@@ -10,12 +10,17 @@ class TodoIndex extends React.Component {
   }
 
   render() {
+    let todos = _.map(this.state.todos, function(todo){
+      return <li>{todo.name}</li> 
+    });
 
     return(
       <div>
         <h2>Todo List</h2>
         <TodoForm />
-        <TodoList todos={this.state.todos} />
+        <ul>
+          {todos}
+        </ul>
       </div>
     )
   }
