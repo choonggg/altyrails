@@ -16,7 +16,8 @@ class TodoForm extends React.Component {
 
   onInputKeyDown(e) {
     if (e.keyCode == 13 && this.refs.todo.value.length) {
-      this.props.submitTodo(e.target.value)
+      TodoActions.addTodo(e.target.value)
+      this.setState({todoName: ''})
     }
   }
 

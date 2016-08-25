@@ -3,26 +3,35 @@ class TodoIndex extends React.Component {
   constructor(props) {
     super(props)
     todos: []
+
+    TodoStore.getState();
+
+    this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount() {
-    this.setState({todos: this.props.todos})
+    TodoStore.listen(this.onChange)
+    TodoActions.getInitialTodos(this.props.todos)
+  }
+
+  cimponentWillUnmount() {
+    TodoStore.unlisten(this.onChange)
+  }
+
+  onChange(state) {
+    this.setState(state)
   }
 
   render() {
-    let todos = _.map(this.state.todos, function(todo){
-      return <li>{todo.name}</li> 
-    });
 
     return(
       <div>
         <h2>Todo List</h2>
         <TodoForm />
-        <ul>
-          {todos}
-        </ul>
+        <TodoList todos={this.state.todos} />
       </div>
     )
   }
 
 }
+
